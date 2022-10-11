@@ -1,2 +1,2 @@
 # opifolio
-A siple portfolio homepage with contact data.
+A simple portfolio homepage with contact data.
