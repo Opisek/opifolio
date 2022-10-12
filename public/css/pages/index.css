@@ -27,6 +27,7 @@ body {
 .images > div > a {
     width: 100%;
     height: 100%;
+    cursor: pointer;
 }
 
 .images > div > a > div {
@@ -45,12 +46,17 @@ label {
     height: 100%;
     transform: translateY(-100%);
     display: block;
+    cursor: pointer;
 }
 
 label > div {
     padding: 1em;
     background-color: #383538;
     border-radius: 1em;
+}
+
+label > div > span {
+    white-space: pre;
 }
 
 img {
