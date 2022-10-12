@@ -55,7 +55,7 @@ label > div {
     border-radius: 1em;
 }
 
-label > div > span {
+span {
     white-space: pre;
 }
 
