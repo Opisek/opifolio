@@ -1,0 +1,26 @@
+* { 
+    box-sizing: border-box;
+    transition: .25s;
+}
+
+body {
+    display: grid;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: large;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+    cursor: pointer;
+}
+
+h1 {
+    font-size: xx-large;
+    font-weight: 700;
+}
+
+@media screen and (max-width: 1000px) {
+
+}

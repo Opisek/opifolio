@@ -1,0 +1,40 @@
+body {
+    background-color: #282528;
+    color: #f0f8ff;
+    text-align: center;
+    grid-template-rows: 10fr auto 11fr;
+    height: 100vh;
+}
+
+.images {
+    grid-row: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 3em
+}
+
+.images:hover {
+    /* transform: translateY(-50%); */
+}
+
+.images > div {
+    width: 10em;
+    height: auto;
+}
+
+img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+img:hover {
+    transform: scale(110%);
+}
+
+@media screen and (max-width: 700px) {
+    .images {
+        flex-direction: column;
+    }
+}

@@ -25,6 +25,7 @@ server.set("views", path.join(publicPath + '/ejs'))
 server.set("/partials", path.join(publicPath + '/partials'))
 server.use("/css", express.static(path.join(publicPath + '/css')));
 server.use("/js", express.static(path.join(publicPath + '/js')));
+server.use("/images", express.static(path.join(publicPath + '/images')));
 
 server.get("/", function(req, res) {
     //if (authenticate(req, res)) return;
