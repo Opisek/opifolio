@@ -6,7 +6,7 @@ body {
     height: 100vh;
 }
 
-.images {
+main {
     grid-row: 2;
     display: flex;
     flex-direction: row;
@@ -15,22 +15,22 @@ body {
     gap: 3em
 }
 
-.images:hover {
+main:hover {
     /* transform: translateY(-50%); */
 }
 
-.images > div {
+main > div {
     width: 10em;
     height: 10em;
 }
 
-.images > div > a {
+main > div > a {
     width: 100%;
     height: 100%;
     cursor: pointer;
 }
 
-.images > div > a > div {
+main > div > a > div {
     width: 100%;
     height: 100%;
     background-color: #282528;
@@ -64,15 +64,15 @@ img {
     max-width: 100%;
 }
 
-.images > div:hover label {
+main > div:hover label {
     transform: translateY(2em);
 }
-.images > div:hover img {
+main > div:hover img {
     transform: scale(110%);
 }
 
 @media screen and (max-width: 700px) {
-    .images {
+    main {
         flex-direction: column;
     }
 }
