@@ -1,0 +1,50 @@
+body {
+    background-color: #282528;
+    color: #f0f8ff;
+    text-align: center;
+    grid-template-rows: 10fr auto 11fr;
+    height: 100vh;
+}
+
+main {
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    gap: 1em;
+}
+
+main > * {
+    margin: 0;
+}
+
+main > div {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 5rem;
+    font-weight: 700;
+}
+
+a {
+    background-color: #383538;
+    padding: 1em 2em;
+    border-radius: 1em;
+    width: 10em;
+}
+
+a:hover {
+    background-color: #535053;
+    transform: scale(110%);
+}
+
+span {
+    margin-bottom: 1em;
+}
