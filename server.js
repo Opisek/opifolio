@@ -41,6 +41,7 @@ server.get("/", (req, res) => {
 for (const redirect of config.redirects) for (const page of redirect.pages) server.get(`/${page}/`, (req, res) => res.redirect(redirect.url));
 
 server.get("*", (req, res) => {
+    res.status(404);
     res.render("404", { host: `${req.protocol}://${req.hostname}/` });
     res.end();
 });
