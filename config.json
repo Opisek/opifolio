@@ -1,0 +1,20 @@
+{
+    "redirects": [
+        {
+            "pages": ["dc", "discord"],
+            "url": "https://discord.gg/cCxkDjZ"
+        },
+        {
+            "pages": ["git", "github"],
+            "url": "https://github.com/Opisek"
+        },
+        {
+            "pages": ["yt", "youtube"],
+            "url": "https://youtube.com/Opisek"
+        },
+        {
+            "pages": ["linkedin"],
+            "url": "https://www.linkedin.com/in/kacper-darowski-1882091a8/"
+        }
+    ]
+}

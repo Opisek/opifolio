@@ -5,6 +5,8 @@ const path = require("path");
 const http = require("http");
 require('dotenv').config();
 
+const config = JSON.parse(fs.readFileSync("config.json"));
+
 const httpProtocol = process.env.HTTPS == "true" ? "https" : "http";
 const socketProtocol = process.env.HTTPS == "true" ? "wss" : "ws";
 
@@ -27,13 +29,15 @@ server.use("/css", express.static(path.join(publicPath + '/css')));
 server.use("/js", express.static(path.join(publicPath + '/js')));
 server.use("/images", express.static(path.join(publicPath + '/images')));
 
-server.get("/", function(req, res) {
+server.get("/", (req, res) => {
     //if (authenticate(req, res)) return;
 
     //res.render(`index`, {host: `https://${host}`});
     res.render("index");
     res.end();
 });
+
+for (const redirect of config.redirects) for (const page of redirect.pages) server.get(`/${page}/`, (req, res) => res.redirect(redirect.url));
 
 /*(require('socket.io')(server)).on("connection", function(socket) {
     socket.on("authenticate", function(token) {
