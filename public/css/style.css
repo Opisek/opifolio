@@ -8,6 +8,11 @@ body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     font-size: large;
+    background-color: #282528;
+    color: #f0f8ff;
+    text-align: center;
+    grid-template-rows: 10fr auto 11fr;
+    height: 100vh;
 }
 
 a {
@@ -17,10 +22,10 @@ a {
 }
 
 h1 {
-    font-size: xx-large;
+    font-size: 5rem;
     font-weight: 700;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 700px) {
 
 }
