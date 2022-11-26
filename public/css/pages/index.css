@@ -1,30 +1,66 @@
-main {
+main > * {
+    padding: var(--paddingLarge) var(--paddingLarger);
+    width: 100%;
+}
+
+/* Welcome */
+
+.welcome {
+    min-height: var(--innerWindowHeight);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "portrait welcome";
+    gap: var(--gap);
+}
+
+.portrait {
+    grid-area: portrait;
+}
+
+.welcomeText {
+    grid-area: welcome;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--gapSmall);
+    padding: var(--paddingLarge) 0;
+    text-align: left;
+}
+
+/* Contact */
+
+.contact {
+    text-align: center;
+    display: flex;
     flex-direction: row;
-    gap: 3em
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap)
 }
 
-main > div {
-    width: 10em;
-    height: 10em;
+.contact > div {
+    width: var(--contactHeight);
+    height: var(--contactHeight);
 }
 
-main > div > a {
+.contact a {
     width: 100%;
     height: 100%;
     cursor: pointer;
 }
 
-main > div > a > div {
+.contact a > div {
     width: 100%;
     height: 100%;
-    background-color: #282528;
+    background-color: var(--currentBackground);
     position: relative;
     z-index: 1;
     display: flex;
     align-items: center;
 }
 
-label {
+.contact a > label {
     z-index: 2;
     width: 100%;
     height: 100%;
@@ -33,30 +69,53 @@ label {
     cursor: pointer;
 }
 
-label > div {
-    padding: 1em;
-    background-color: #383538;
-    border-radius: 1em;
-}
-
-span {
+.contact span {
     white-space: pre;
 }
 
-img {
+.contact label > div {
+    padding: 1em;
+    background-color: var(--altBackground);
+    border-radius: 1em;
+}
+
+.contact img {
     max-height: 100%;
     max-width: 100%;
 }
 
-main > div:hover label {
+.contact > div:hover label {
     transform: translateY(2em);
 }
-main > div:hover img {
+.contact > div:hover img {
     transform: scale(110%);
 }
 
-@media screen and (max-width: 700px) {
-    label {
-        display: none;
+/* Resume */
+
+.resume {
+    height: 20em;
+}
+
+@media screen and (max-width: 1000px) {
+    main > * {
+        padding: var(--paddingLarge) var(--padding)
+    }
+    .welcome {
+        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas: "none portrait none2" "welcome welcome welcome";
+        gap: var(--gapSmall);
+    }
+    .welcomeText {
+        justify-content: start;
+        padding: 0;
+    }
+    .contact label {
+        display: none !important;
+    }
+    .contact {
+        flex-direction: column;
+        height: var(--innerWindowHeight);
     }
 }

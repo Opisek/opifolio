@@ -1,0 +1,24 @@
+:root {
+    --primaryBackground: #282528;
+    --primaryForeground:#F0F8FF;
+    --secondaryBackground: #3b373b;
+    --secondaryForeground:#F0F8FF;
+}
+
+.primary {
+    --currentForeground: var(--primaryForeground);
+    --currentBackground: var(--primaryBackground);
+    --altForeground: var(--secondaryForeground);
+    --altBackground: var(--secondaryBackground);
+    color: var(--currentForeground);
+    background-color: var(--currentBackground);
+}
+
+.secondary {
+    --currentForeground: var(--secondaryForeground);
+    --currentBackground: var(--secondaryBackground);
+    --altForeground: var(--primaryForeground);
+    --altBackground: var(--primaryBackground);
+    color: var(--currentForeground);
+    background-color: var(--currentBackground);
+}

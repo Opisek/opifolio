@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
 <%- include("partials/commonHead.ejs") %>
-    <link rel="stylesheet" type="text/css" href="css/pages/404.css">
+    <link rel="stylesheet" type="text/css" href="/css/pages/404.css">
     <title>Page Not Found</title>
 </head>
 <body>
-    <main>
+    <main class="primary">
         <h1>404</h1>
         <span>The page you are looking for was not found.</span>
         <div>
-            <a href="" id="back">Go Back</a>
-            <a href="<%= host %>">Homepage</a>
+            <a class="button" href="" id="back">Go Back</a>
+            <a class="button" href="/">Homepage</a>
         </div>
     </main>
-    <script type="text/javascript" src="js/pages/404.js"></script>
+    <script type="text/javascript" src="/js/pages/404.js"></script>
 </body>
 </html>

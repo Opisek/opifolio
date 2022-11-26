@@ -38,14 +38,11 @@ server.get("/", (req, res) => {
     res.end();
 });
 
-for (const redirect of config.redirects) for (const page of redirect.pages) {
-    console.log("hi");
-    server.get(`/${page}/:sub1?/:sub2?/`, (req, res) => res.redirect(`${redirect.url}${req.params.sub1 == undefined ? '' : `/${req.params.sub1}${req.params.sub2 == undefined ? '' : `/${req.params.sub2}`}`}`));
-}
+for (const redirect of config.redirects) for (const page of redirect.pages) server.get(`/${page}/:sub1?/:sub2?/`, (req, res) => res.redirect(`${redirect.url}${req.params.sub1 == undefined ? '' : `/${req.params.sub1}${req.params.sub2 == undefined ? '' : `/${req.params.sub2}`}`}`));
 
 server.get("*", (req, res) => {
     res.status(404);
-    res.render("404", { host: `${req.protocol}://${req.hostname}/` });
+    res.render("404");
     res.end();
 });
 

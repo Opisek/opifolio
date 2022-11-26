@@ -1,6 +1,6 @@
 main {
     flex-direction: column;
-    gap: 1em;
+    gap: var(--gapSmall)
 }
 
 main > * {
@@ -10,22 +10,14 @@ main > * {
 main > div {
     display: flex;
     flex-direction: row;
-    gap: 1em;
+    gap: var(--gapSmaller);
     align-items: center;
     justify-content: center;
     max-width: 20em;
 }
 
 a {
-    background-color: #383538;
-    padding: 1em 2em;
-    border-radius: 1em;
     flex: 1 0 50%;
-}
-
-a:hover {
-    background-color: #535053;
-    transform: scale(110%);
 }
 
 span {
