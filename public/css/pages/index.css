@@ -1,15 +1,12 @@
 main > div {
+    padding: var(--paddingSmall) var(--paddingLarger);
+
     width: 100%;
 }
 
 /* Welcome */
 
 .welcome {
-    padding-top: var(--paddingLarge);
-    padding-bottom: var(--paddingLarge);
-    padding-left: var(--paddingLarger);
-    padding-right: var(--paddingLarger);
-
     min-height: var(--innerWindowHeight);
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -46,11 +43,6 @@ main > div {
     align-items: center;
     gap: var(--gap);
     overflow: hidden;
-
-    padding-top: var(--paddingSmall);
-    padding-bottom: var(--paddingSmall);
-    padding-left: var(--paddingLarger);
-    padding-right: var(--paddingLarger);
 }
 
 .contact > div {
@@ -114,8 +106,7 @@ main > div {
 
 @media screen and (max-width: 1000px) {
     main > div {
-        padding-left: var(--padding) !important;
-        padding-right: var(--padding) !important;
+        padding: var(--paddingSmall) var(--paddingSmall);
     }
     .welcome {
         grid-template-columns: 1fr;
@@ -144,8 +135,6 @@ main > div {
 
 @media screen and (max-height: 1000px) {
     main > div {
-        padding-top: var(--paddingSmall) !important;
-        padding-bottom: var(--paddingSmall) !important;
         margin: 0;
     }
 }
