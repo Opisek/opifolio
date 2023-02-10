@@ -20,14 +20,14 @@
             "pages": ["telegram"],
             "url": "https://t.me/Opisek"
         },
-		{
-			"pages": ["twitter"],
-			"url": "https://twitter.com/Opisek"
-		},
-		{
-			"pages": ["twitch"],
-			"url": "https://twitch.tv/Opisek"
-		}
+        {
+            "pages": ["twitter"],
+            "url": "https://twitter.com/OpisekOpi"
+        },
+        {
+            "pages": ["twitch"],
+            "url": "https://twitch.tv/Opisek"
+        }
     ],
     "links": [
         {
