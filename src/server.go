@@ -52,7 +52,10 @@ func main() {
 			split := strings.Split(r.URL.Path[1:], "/")
 			url, exists := redirectsMap[split[0]]
 			if exists {
-				http.Redirect(w, r, url+"/"+r.URL.Path[len(split[0])+2:], http.StatusPermanentRedirect)
+				if len(split) != 1 {
+					url += "/" + r.URL.Path[len(split[0])+2:]
+				}
+				http.Redirect(w, r, url, http.StatusPermanentRedirect)
 			} else {
 				t.ExecuteTemplate(w, "404.html", nil)
 			}
