@@ -59,5 +59,5 @@ func main() {
 		}
 	})
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 }
