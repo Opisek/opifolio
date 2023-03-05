@@ -1,0 +1,30 @@
+[
+    {
+        "pages": ["dc", "discord"],
+        "url": "https://discord.gg/cCxkDjZ"
+    },
+    {
+        "pages": ["git", "github"],
+        "url": "https://github.com/Opisek"
+    },
+    {
+        "pages": ["yt", "youtube"],
+        "url": "https://youtube.com/Opisek"
+    },
+    {
+        "pages": ["linkedin"],
+        "url": "https://www.linkedin.com/in/kacper-darowski"
+    },
+    {
+        "pages": ["telegram"],
+        "url": "https://t.me/Opisek"
+    },
+    {
+        "pages": ["twitter"],
+        "url": "https://twitter.com/OpisekOpi"
+    },
+    {
+        "pages": ["twitch"],
+        "url": "https://twitch.tv/Opisek"
+    }
+]
