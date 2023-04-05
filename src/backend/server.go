@@ -15,17 +15,13 @@ type Redirect struct {
 
 func main() {
 	// get html files so we can determine 404 without expensive disk reads
-	files, err := os.ReadDir("public")
+	htmlFiles, err := os.ReadDir("public/html")
 	if err != nil {
 		panic(err)
 	}
-	htmlFiles := map[string]bool{}
-	for _, file := range files {
-		fileName := file.Name()
-		extension := fileName[(strings.LastIndex(fileName, ".") + 1):]
-		if extension == "html" {
-			htmlFiles[fileName] = true
-		}
+	htmlFilesMap := map[string]bool{}
+	for _, file := range htmlFiles {
+		htmlFilesMap[file.Name()] = true
 	}
 
 	// static data
@@ -54,15 +50,15 @@ func main() {
 	}
 
 	// page handling
-	http.Handle("/", http.FileServer(http.Dir("public/html")))
-
-	// page handling
-	/*http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path[1:] + ".html"
 		if path == ".html" {
 			path = "index.html"
 		}
-		if t.ExecuteTemplate(w, path, nil) != nil {
+
+		if htmlFilesMap[path] {
+			http.ServeFile(w, r, "public/html/"+path)
+		} else {
 			split := strings.Split(r.URL.Path[1:], "/")
 			url, exists := redirectsMap[split[0]]
 			if exists {
@@ -71,10 +67,10 @@ func main() {
 				}
 				http.Redirect(w, r, url, http.StatusPermanentRedirect)
 			} else {
-				t.ExecuteTemplate(w, "404.html", nil)
+				http.ServeFile(w, r, "public/html/404.html")
 			}
 		}
-	})*/
+	})
 
 	fmt.Println("Listening on port " + os.Getenv("PORT"))
 	http.ListenAndServe(":"+os.Getenv("PORT"), nil)
