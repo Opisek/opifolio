@@ -1,10 +1,22 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.16-alpine
+# build frontend
+FROM node:19-alpine AS frontend
 WORKDIR /app
-COPY src/ ./
+COPY src/frontend ./
+RUN npm install
+RUN npm run build
+
+# build backend
+FROM golang:1.20-alpine AS backend
+WORKDIR /app
+COPY src/backend ./
 RUN go mod download
-RUN go build -o ./server
-RUN rm ./go.mod
-RUN rm ./server.go
-CMD [ "/app/server" ]
+RUN go build -o ./dist/server
+
+# run
+FROM alpine:3.17
+WORKDIR /app
+COPY --from=frontend /app/dist ./
+COPY --from=backend /app/dist ./
+ENTRYPOINT [ "/app/server" ]

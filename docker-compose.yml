@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  opifolio:
+    image: opifolio
+    build:
+      context: ./
+      dockerfile: Dockerfile
