@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"html/template"
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -14,17 +14,27 @@ type Redirect struct {
 }
 
 func main() {
-	// static data
-	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css"))))
-	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("public/js"))))
-	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("public/images"))))
+	// get html files so we can determine 404 without expensive disk reads
+	files, err := os.ReadDir("public")
+	if err != nil {
+		panic(err)
+	}
+	htmlFiles := map[string]bool{}
+	for _, file := range files {
+		fileName := file.Name()
+		extension := fileName[(strings.LastIndex(fileName, ".") + 1):]
+		if extension == "html" {
+			htmlFiles[fileName] = true
+		}
+	}
 
-	// templates
-	t := template.Must(template.ParseGlob("./public/html/*.html"))
-	template.Must(t.ParseGlob("./public/partials/*.html")) // i don't like that this can be viewed e.g. opisek.net/commonHead
+	// static data
+	//http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css"))))
+	//http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("public/js"))))
+	//http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("public/images"))))
 
 	// redirects
-	redirectsJson, err := os.ReadFile("redirects.json")
+	redirectsJson, err := os.ReadFile("config/redirects.json")
 	if err != nil {
 		panic(err)
 	}
@@ -43,7 +53,10 @@ func main() {
 	}
 
 	// page handling
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	http.Handle("/", http.FileServer(http.Dir("public")))
+
+	// page handling
+	/*http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path[1:] + ".html"
 		if path == ".html" {
 			path = "index.html"
@@ -60,7 +73,8 @@ func main() {
 				t.ExecuteTemplate(w, "404.html", nil)
 			}
 		}
-	})
+	})*/
 
+	fmt.Println("Listening on port " + os.Getenv("PORT"))
 	http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 }
