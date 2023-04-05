@@ -16,7 +16,7 @@ RUN go build -o dist/server
 COPY config dist/config
 
 # run
-FROM alpine:3.17
+FROM alpine:3.17 AS runtime
 WORKDIR /app
 COPY --from=frontend /app/dist public
 COPY --from=backend /app/dist .

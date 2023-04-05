@@ -1,0 +1,1 @@
+require("/mnt/d/Projects/Websites/opifolio/src/frontend/html/404.ejs");require("/mnt/d/Projects/Websites/opifolio/src/frontend/html/index.ejs");

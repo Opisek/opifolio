@@ -3,14 +3,16 @@
     "node": ">=14.15.0"
   },
   "devDependencies": {
-    "@parcel/compressor-gzip": "^2.8.3",
-    "@parcel/config-default": "^2.8.3",
-    "parcel": "^2.8.3",
-    "parcel-transformer-ejs": "^1.0.1",
-    "sharp": "^0.31.3",
-    "tailwindcss": "^3.3.1"
+    "css-loader": "^6.7.3",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "image-minimizer-webpack-plugin": "^3.8.2",
+    "mini-css-extract-plugin": "^2.7.5",
+    "sharp": "^0.32.0",
+    "template-ejs-loader": "^0.9.4",
+    "webpack": "^5.77.0"
   },
   "scripts": {
-    "build": "npx parcel build html/**"
+    "build": "node scripts/build"
   }
 }

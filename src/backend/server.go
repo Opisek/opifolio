@@ -29,9 +29,10 @@ func main() {
 	}
 
 	// static data
-	//http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css"))))
-	//http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("public/js"))))
-	//http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("public/images"))))
+	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css"))))
+	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("public/js"))))
+	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("public/images"))))
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("public/static"))))
 
 	// redirects
 	redirectsJson, err := os.ReadFile("config/redirects.json")
@@ -53,7 +54,7 @@ func main() {
 	}
 
 	// page handling
-	http.Handle("/", http.FileServer(http.Dir("public")))
+	http.Handle("/", http.FileServer(http.Dir("public/html")))
 
 	// page handling
 	/*http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
