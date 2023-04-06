@@ -1,9 +1,10 @@
 import { join, parse } from "path";
-import { rootDir, distDir, htmlDir } from "./paths.js";
+import { rootDir, distDir, htmlDir, jsDistDir } from "./paths.js";
 
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import ImageMinimizerPlugin from "image-minimizer-webpack-plugin";
+import TerserPlugin from "terser-webpack-plugin";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 
 export default (htmlFiles) => ({
     mode: "production",
@@ -24,7 +25,7 @@ export default (htmlFiles) => ({
                 exclude: /node_modules/,
                 type: "asset/resource",
                 generator : {
-                    filename : "css/[hash][ext]",
+                    filename : "css/[hash][ext]"
                 }
             },
             {
@@ -33,7 +34,7 @@ export default (htmlFiles) => ({
                 type: "asset/resource",
                 use: "ts-loader",
                 generator : {
-                    filename : "js/[hash].js",
+                    filename : "js/[hash].js"
                 }
             },
             {
@@ -41,22 +42,23 @@ export default (htmlFiles) => ({
                 exclude: /node_modules/,
                 type: "asset",
                 generator : {
-                    filename : "images/[hash][ext]",
+                    filename : "images/[hash][ext]"
                 }
             }
-        ],
+        ]
     },
     resolve: {
-        extensions: [".ts", ".js"],
+        extensions: [".ts", ".js"]
     },
     plugins: htmlFiles.map(
         file => new HtmlWebpackPlugin({
             filename: `html/${parse(file).name}.html`,
-            template: join(htmlDir, file),
+            template: join(htmlDir, file)
         })
     ).concat([
     ]),
     optimization: {
+        realContentHash: false,
         minimizer: [
             new ImageMinimizerPlugin({
                 generator: [
@@ -66,17 +68,15 @@ export default (htmlFiles) => ({
                         options: {
                             encodeOptions: {
                                 webp: {
-                                    quality: 75,
-                                },
-                            },
+                                    quality: 75
+                                }
+                            }
                         }
-                    },
-                ],
-            })
+                    }
+                ]
+            }),
+            new TerserPlugin(),
+            new CssMinimizerPlugin()
         ]
-    },
+    }
 });
-
-// https://www.npmjs.com/package/image-minimizer-webpack-plugin
-// https://stackoverflow.com/questions/67250804/html-loader-is-not-getting-correct-img-src-path
-// https://stackoverflow.com/questions/66907267/webpack-file-loader-duplicates-files
