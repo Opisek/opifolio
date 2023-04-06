@@ -1,4 +1,4 @@
-import { rmSync, readdirSync, writeFileSync, createReadStream, createWriteStream, readFile, writeFile, readFileSync } from "fs";
+import { rmSync, readdirSync, writeFileSync, createReadStream, createWriteStream, readFileSync } from "fs";
 import { extname, join, parse } from "path";
 import webpack from "webpack";
 import { generate } from "critical";
