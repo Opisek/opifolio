@@ -23,7 +23,11 @@ module.exports = {
         "no-multi-spaces": ["error"],
         "no-var": 0,
         "comma-dangle": ["error", "never"],
-        "eol-last": ["error", "never"]
+        "eol-last": ["error", "never"],
+        "comma-spacing": ["error", {
+            "before": false,
+            "after": true
+        }]
     },
     "ignorePatterns": ["entry.js", "dist"]
 };
