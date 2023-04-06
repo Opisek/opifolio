@@ -2,7 +2,7 @@ version: "3.9"
 services:
   opifolio:
     container_name: opifiolio
-    image: opifolio
+    image: opisek/opifolio
     build:
       context: ./
       dockerfile: Dockerfile
