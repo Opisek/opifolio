@@ -22,7 +22,6 @@ module.exports = {
         "semi": [ "error", "always" ],
         "no-multi-spaces": ["error"],
         "no-var": 0,
-        "curly": [ "error", "consistent" ],
 		"comma-dangle": ["error", "never"],
 		"eol-last": ["error", "never"]
     }
