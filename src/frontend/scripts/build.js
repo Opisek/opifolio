@@ -3,8 +3,8 @@ import { extname, join, parse } from "path";
 import webpack from "webpack";
 import { generate } from "critical";
 
-import { cssDistDir, distDir, htmlDir, htmlDistDir, jsDistDir, rootDir } from "./paths.js";
-import webpackConfig from "./webpack.config.js";
+import { cssDistDir, distDir, htmlDir, htmlDistDir, jsDistDir, rootDir } from "./paths";
+import webpackConfig from "./webpack/webpack.config";
 import { createGzip } from "zlib";
 
 (async () => {
@@ -20,10 +20,9 @@ import { createGzip } from "zlib";
 
     console.log("Running webpack");
     const [webpackError, webpackStats] = await new Promise(res => webpack(webpackConfig(htmlFiles), (error, stats) => res([error, stats])));
-    if (webpackError) console.error(webpackError);
-    if (webpackStats.warnings) console.error(webpackStats.warnings);
-    if (webpackStats.errors) console.error(webpackStats.errors);
-    console.log(webpackStats);
+    if (webpackError) console.error(`Webpack Errors:\n${webpackError}`);
+    if (webpackStats.hasWarnings()) console.error(webpackStats.toJson().warnings);
+    if (webpackStats.hasErrors()) console.error(webpackStats.toJson().errors);
 
     console.log("Inlining critical CSS");
     await inlineCriticalCss(htmlFiles);

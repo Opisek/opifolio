@@ -22,7 +22,7 @@
     "zlib": "^1.0.5"
   },
   "scripts": {
-    "build": "node scripts/build"
+    "build": "node --experimental-specifier-resolution=node scripts/build"
   },
   "type": "module"
 }
