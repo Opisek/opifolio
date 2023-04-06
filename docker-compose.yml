@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  opifolio:
+    container_name: opifiolio
+    image: opisek/opifolio
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - ${PORT}:80
+    environment:
+      - PORT=80
+    restart: unless-stopped

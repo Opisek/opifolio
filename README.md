@@ -1,2 +1,2 @@
 # opifolio
-A simple portfolio homepage with contact data.
+My portfolio page including a handy redirects engine.
