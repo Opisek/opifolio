@@ -1,11 +1,17 @@
-import { resolve, join, dirname } from "path";
-import { fileURLToPath } from "url";
+const path = require("path");
 
-export const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const rootDir = path.resolve(__dirname, "..");
+const distDir = path.join(rootDir, "dist");
+const htmlDistDir = path.join(distDir, "html");
+const jsDistDir = path.join(distDir, "js");
+const cssDistDir = path.join(distDir, "css");
+const htmlDir = path.join(rootDir, "html");
 
-export const htmlDir = join(rootDir, "html");
-export const cssDistDir = join(rootDir, "css");
-
-export const distDir = join(rootDir, "dist");
-export const htmlDistDir = join(distDir, "html");
-export const jsDistDir = join(distDir, "js");
+module.exports = {
+    rootDir: rootDir, 
+    distDir: distDir, 
+    htmlDistDir: htmlDistDir, 
+    htmlDir: htmlDir,
+    jsDistDir: jsDistDir,
+    cssDistDir: cssDistDir
+}
