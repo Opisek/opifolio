@@ -14,7 +14,7 @@ export default (htmlFiles) => ({
     output: {
         path: distDir,
         filename: "js/[hash].js",
-        assetModuleFilename: "static/[hash][ext]"
+        assetModuleFilename: "static/[contenthash][ext]"
     },
     module: {
         rules: [
@@ -28,7 +28,7 @@ export default (htmlFiles) => ({
                 exclude: /node_modules/,
                 type: "asset/resource",
                 generator : {
-                    filename : "css/[hash][ext]"
+                    filename : "css/[contenthash][ext]"
                 }
             },
             {
@@ -37,7 +37,7 @@ export default (htmlFiles) => ({
                 type: "asset/resource",
                 use: "ts-loader",
                 generator : {
-                    filename : "js/[hash].js"
+                    filename : "js/[contenthash].js"
                 }
             },
             {
@@ -45,7 +45,7 @@ export default (htmlFiles) => ({
                 exclude: /node_modules/,
                 type: "asset",
                 generator : {
-                    filename : "images/[hash][ext]"
+                    filename : "images/[contenthash][ext]"
                 }
             }
         ]
