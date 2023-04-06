@@ -22,7 +22,7 @@ module.exports = {
         "semi": [ "error", "always" ],
         "no-multi-spaces": ["error"],
         "no-var": 0,
-		"comma-dangle": ["error", "never"],
-		"eol-last": ["error", "never"]
+        "comma-dangle": ["error", "never"],
+        "eol-last": ["error", "never"]
     }
 };
