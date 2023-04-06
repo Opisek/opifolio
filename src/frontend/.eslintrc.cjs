@@ -24,5 +24,6 @@ module.exports = {
         "no-var": 0,
         "comma-dangle": ["error", "never"],
         "eol-last": ["error", "never"]
-    }
+    },
+    "ignorePatterns": ["entry.js", "dist"]
 };
