@@ -1,10 +1,11 @@
-import { rmSync, readdirSync, writeFileSync } from "fs";
-import { join, parse } from "path";
+import { rmSync, readdirSync, writeFileSync, createReadStream, createWriteStream } from "fs";
+import { extname, join, parse } from "path";
 import webpack from "webpack";
 import { generate } from "critical";
 
-import { distDir, htmlDir, rootDir } from "./paths.js";
+import { cssDistDir, distDir, htmlDir, htmlDistDir, jsDistDir, rootDir } from "./paths.js";
 import webpackConfig from "./webpack.config.js";
+import { createGzip } from "zlib";
 
 (async () => {
     console.log("Clearing dist");
@@ -25,7 +26,16 @@ import webpackConfig from "./webpack.config.js";
     console.log(webpackStats);
 
     console.log("Inlining critical CSS");
-    await Promise.all(
+    await inlineCriticalCss(htmlFiles);
+    
+    console.log("Compressing files");
+    compressFiles(htmlDistDir, [".html"]);
+    compressFiles(cssDistDir, [".css"]);
+    compressFiles(jsDistDir, [".js"]);
+})();
+
+function inlineCriticalCss(htmlFiles) {
+    return Promise.all(
         htmlFiles.map(file => `html/${parse(file).name}.html`).map(file => generate({
             base: distDir,
             src: file,
@@ -48,6 +58,19 @@ import webpackConfig from "./webpack.config.js";
             ]
         }))
     );
-    
-    console.log("Compressing files");
-})();
+}
+
+async function compressFiles(directory, extensions) {
+    const files = readdirSync(directory);
+    return Promise.all(
+        files
+            .filter(file => extensions.includes(extname(file)))
+            .map(file => new Promise((resolve, reject) => {
+                createReadStream(join(directory, file))
+                    .pipe(createGzip())
+                    .pipe(createWriteStream(join(directory, `${file}.gz`)))
+                    .on("error", reject)
+                    .on("finish", resolve);
+            }))
+    );
+}
