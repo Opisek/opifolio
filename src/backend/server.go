@@ -28,9 +28,10 @@ func main() {
 	redirectsMap := getRedirectsMap()
 
 	// handle static resources
-	http.Handle("/css/", handleStatic("text/css", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css")))))
-	http.Handle("/js/", handleStatic("text/javascript", http.StripPrefix("/js/", http.FileServer(http.Dir("public/js")))))
-	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("public/images"))))
+	oneYear := 60 * 60 * 24 * 365
+	http.Handle("/css/", handleCache(oneYear, handleCompression("text/css", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css"))))))
+	http.Handle("/js/", handleCache(oneYear, handleCompression("text/javascript", http.StripPrefix("/js/", http.FileServer(http.Dir("public/js"))))))
+	http.Handle("/images/", handleCache(oneYear, http.StripPrefix("/images/", http.FileServer(http.Dir("public/images")))))
 
 	// handle views and redirects
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) { handleView(w, r, &htmlFilesMap, &redirectsMap) })
@@ -104,7 +105,17 @@ func getCompressedExtension(r *http.Request) string {
 // File Handling
 //
 
-func handleStatic(contentType string, h http.Handler) http.Handler {
+func handleCache(seconds int, h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// set matching compression encoding
+		w.Header().Set("Cache-Control", "public, max-age="+fmt.Sprint(seconds))
+
+		// forward request to the next handler in the chain
+		h.ServeHTTP(w, r)
+	})
+}
+
+func handleCompression(contentType string, h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// if no encoding is supported, immediatel forward to the next handler
 		if !supportsCompression(r) {
