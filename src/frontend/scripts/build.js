@@ -1,4 +1,4 @@
-import { rmSync, readdirSync, writeFileSync, createReadStream, createWriteStream } from "fs";
+import { rmSync, readdirSync, writeFileSync, createReadStream, createWriteStream, readFile, writeFile, readFileSync } from "fs";
 import { extname, join, parse } from "path";
 import webpack from "webpack";
 import { generate } from "critical";
@@ -12,7 +12,7 @@ import { createGzip } from "zlib";
     rmSync(distDir, { recursive: true, force: true });
 
     console.log("Collecting files");
-    const htmlFiles = readdirSync(htmlDir);
+    let htmlFiles = readdirSync(htmlDir);
     writeFileSync(
         join(rootDir, "entry.js"),
         htmlFiles.map(file => `require("${join(htmlDir, file)}");`).reduce((accumulator, current) => accumulator + current)
@@ -23,6 +23,10 @@ import { createGzip } from "zlib";
     if (webpackError) console.error(`Webpack Errors:\n${webpackError}`);
     if (webpackStats.hasWarnings()) console.error(webpackStats.toJson().warnings);
     if (webpackStats.hasErrors()) console.error(webpackStats.toJson().errors);
+    htmlFiles = htmlFiles.map(file => `${htmlDistDir}/${parse(file).name}.html`);
+
+    console.log("Cleaning up bundle file");
+    await cleanupBundle(htmlFiles);
 
     console.log("Inlining critical CSS");
     await inlineCriticalCss(htmlFiles);
@@ -33,9 +37,23 @@ import { createGzip } from "zlib";
     compressFiles(jsDistDir, [".js"]);
 })();
 
+async function cleanupBundle(htmlFiles) {
+    rmSync(join(distDir, "bundle.js"));
+    return Promise.all(
+        htmlFiles.map(file => new Promise((resolve, reject) => {
+            try {
+                writeFileSync(file, readFileSync(file, {encoding:"utf8"}).replaceAll(/<script[^>]+src="..\/bundle\.js"[^>]*(?:\/>|><\/script>)/g, ""));
+            } catch(e) {
+                reject(`Error removing bundle from "${file}":\n${e}`);
+            }
+            resolve();
+        }))
+    );
+}
+
 function inlineCriticalCss(htmlFiles) {
     return Promise.all(
-        htmlFiles.map(file => `html/${parse(file).name}.html`).map(file => generate({
+        htmlFiles.map(file => generate({
             base: distDir,
             src: file,
             target: file,

@@ -13,7 +13,7 @@ export default (htmlFiles) => ({
     entry: join(rootDir, "entry.js"),
     output: {
         path: distDir,
-        filename: "js/[hash].js",
+        filename: "bundle.js",
         assetModuleFilename: "static/[contenthash][ext]"
     },
     module: {
