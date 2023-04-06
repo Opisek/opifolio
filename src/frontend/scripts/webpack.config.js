@@ -1,5 +1,5 @@
 import { join, parse } from "path";
-import { rootDir, distDir, htmlDir, jsDistDir } from "./paths.js";
+import { rootDir, distDir, htmlDir } from "./paths.js";
 
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ImageMinimizerPlugin from "image-minimizer-webpack-plugin";

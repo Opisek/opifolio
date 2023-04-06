@@ -4,6 +4,13 @@
 FROM node:19-alpine AS frontend
 WORKDIR /app
 COPY src/frontend .
+
+RUN apk add chromium
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+RUN addgroup -S puppeteer && adduser -S -G puppeteer puppeteer && mkdir -p /home/runner/Downloads /app && chown -R puppeteer:puppeteer /home/puppeteer && chown -R puppeteer:puppeteer /app
+USER puppeteer
+CMD [ "google-chrome-stable" ]
+
 RUN npm install
 RUN npm run build
 
