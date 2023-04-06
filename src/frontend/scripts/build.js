@@ -3,8 +3,8 @@ import { extname, join, parse } from "path";
 import webpack from "webpack";
 import { generate } from "critical";
 
-import { cssDistDir, distDir, htmlDir, htmlDistDir, jsDistDir, rootDir } from "./paths";
-import webpackConfig from "./webpack/webpack.config";
+import { cssDistDir, distDir, htmlDir, htmlDistDir, jsDistDir, rootDir } from "./paths.js";
+import webpackConfig from "./webpack/webpack.config.js";
 import { createGzip } from "zlib";
 
 (async () => {

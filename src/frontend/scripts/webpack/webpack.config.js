@@ -6,7 +6,7 @@ import ImageMinimizerPlugin from "image-minimizer-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 
-import { rootDir, distDir, htmlDir } from "../paths";
+import { rootDir, distDir, htmlDir } from "../paths.js";
 
 export default (htmlFiles) => ({
     mode: "production",
