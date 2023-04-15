@@ -10,7 +10,7 @@ import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 
 import { rootDir, distDir, htmlDir } from "../paths";
 
-export default (htmlFiles): webpack.Configuration => ({
+export default (htmlFiles: string[]): webpack.Configuration => ({
     mode: "production",
     entry: join(rootDir, "entry.js"),
     output: {
