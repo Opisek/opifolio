@@ -12,14 +12,14 @@ import { createGzip } from "zlib";
     rmSync(distDir, { recursive: true, force: true });
 
     console.log("Collecting files");
-    let htmlFiles = readdirSync(htmlDir);
+    let htmlFiles: string[] = readdirSync(htmlDir);
     writeFileSync(
         join(rootDir, "entry.js"),
         htmlFiles.map(file => `require("${join(htmlDir, file)}");`).reduce((accumulator, current) => accumulator + current)
     );
 
     console.log("Running webpack");
-    const [webpackError, webpackStats] = await new Promise(res => webpack(webpackConfig(htmlFiles), (error, stats) => res([error, stats])));
+    const [ webpackError, webpackStats ] = (await new Promise(res => webpack(webpackConfig(htmlFiles), (error, stats) => res([ error, stats ])))) as [ Error, webpack.Stats ];
     if (webpackError) console.error(`Webpack Errors:\n${webpackError}`);
     if (webpackStats.hasWarnings()) console.error(webpackStats.toJson().warnings);
     if (webpackStats.hasErrors()) console.error(webpackStats.toJson().errors);
@@ -32,18 +32,18 @@ import { createGzip } from "zlib";
     await inlineCriticalCss(htmlFiles);
     
     console.log("Compressing files");
-    compressFiles(htmlDistDir, [".html"]);
-    compressFiles(cssDistDir, [".css"]);
-    compressFiles(jsDistDir, [".js"]);
+    compressFiles(htmlDistDir, [ ".html" ]);
+    compressFiles(cssDistDir, [ ".css" ]);
+    compressFiles(jsDistDir, [ ".js" ]);
 })();
 
-async function cleanupBundle(htmlFiles) {
+async function cleanupBundle(htmlFiles: string[]) {
     rmSync(join(distDir, "bundle.js"));
     return Promise.all(
-        htmlFiles.map(file => new Promise((resolve, reject) => {
+        htmlFiles.map(file => new Promise<void>((resolve, reject) => {
             try {
-                writeFileSync(file, readFileSync(file, {encoding:"utf8"}).replaceAll(/<script[^>]+src="..\/bundle\.js"[^>]*(?:\/>|><\/script>)/g, ""));
-            } catch(e) {
+                writeFileSync(file, readFileSync(file, { encoding:"utf8" }).replaceAll(/<script[^>]+src="..\/bundle\.js"[^>]*(?:\/>|><\/script>)/g, ""));
+            } catch (e) {
                 reject(`Error removing bundle from "${file}":\n${e}`);
             }
             resolve();
@@ -51,7 +51,7 @@ async function cleanupBundle(htmlFiles) {
     );
 }
 
-function inlineCriticalCss(htmlFiles) {
+function inlineCriticalCss(htmlFiles: string[]) {
     return Promise.all(
         htmlFiles.map(file => generate({
             base: distDir,
@@ -77,7 +77,7 @@ function inlineCriticalCss(htmlFiles) {
     );
 }
 
-async function compressFiles(directory, extensions) {
+async function compressFiles(directory: string, extensions: string[]) {
     const files = readdirSync(directory);
     return Promise.all(
         files

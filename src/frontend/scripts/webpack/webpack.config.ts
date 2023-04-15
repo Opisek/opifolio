@@ -1,14 +1,16 @@
 import { join, parse, dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 
+import webpack from "webpack";
+
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ImageMinimizerPlugin from "image-minimizer-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 
-import { rootDir, distDir, htmlDir } from "../paths.js";
+import { rootDir, distDir, htmlDir } from "../paths";
 
-export default (htmlFiles) => ({
+export default (htmlFiles): webpack.Configuration => ({
     mode: "production",
     entry: join(rootDir, "entry.js"),
     output: {
@@ -21,7 +23,7 @@ export default (htmlFiles) => ({
             {
                 test: /\.ejs$/i,
                 exclude: /node_modules/,
-                use: ["html-loader", "webp-everywhere", "template-ejs-loader"]
+                use: [ "html-loader", "webp-everywhere", "template-ejs-loader" ]
             },
             {
                 test: /\.css$/i,
@@ -52,11 +54,11 @@ export default (htmlFiles) => ({
     },
     resolveLoader: {
         alias: {
-            "webp-everywhere": resolve(dirname(fileURLToPath(import.meta.url)), "./WebpEverywhere.cjs")
+            "webp-everywhere": resolve(dirname(fileURLToPath(import.meta.url)), "loaders", "WebpEverywhere.cjs")
         }
     },
     resolve: {
-        extensions: [".ts", ".js"]
+        extensions: [ ".ts", ".js" ]
     },
     plugins: htmlFiles.map(
         file => new HtmlWebpackPlugin({
