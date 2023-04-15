@@ -1,8 +1,9 @@
 {
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=16.0.0 <19.0.0"
   },
   "devDependencies": {
+    "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "critical": "^5.0.4",
@@ -22,7 +23,7 @@
     "zlib": "^1.0.5"
   },
   "scripts": {
-    "build": "node scripts/build"
+    "build": "cd scripts && tsc && cp -R webpack/loaders ../build/webpack/ && node --experimental-specifier-resolution=node ../build/build"
   },
   "type": "module"
 }

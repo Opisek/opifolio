@@ -1,5 +1,5 @@
 module.exports = function(source) {
-    return [...source.matchAll(/(?:'|")((?:\.{0,2}\/)[^'"]+\.(?:png|jpe?g|webp|gif|svg|))(?!(?:\?|&)as=)(\?[^'"]*)?(?:'|")/g)]
+    return [ ...source.matchAll(/(?:'|")((?:\.{0,2}\/)[^'"]+\.(?:png|jpe?g|webp|gif|svg|))(?!(?:\?|&)as=)(\?[^'"]*)?(?:'|")/g) ]
         .reduce(
             (modifiedSource, match) => modifiedSource.replaceAll(
                 match[0],
