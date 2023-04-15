@@ -1,6 +1,7 @@
 import { rmSync, readdirSync, writeFileSync, createReadStream, createWriteStream, readFileSync } from "fs";
 import { extname, join, parse } from "path";
 import webpack from "webpack";
+//@ts-ignore
 import { generate } from "critical";
 
 import { cssDistDir, distDir, htmlDir, htmlDistDir, jsDistDir, rootDir } from "./paths.js";
